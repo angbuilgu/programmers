@@ -4,7 +4,6 @@ def GCD(a, b):
         a = b
         b = c
     return a
-
 def LCM(a,b):
     return a * b / GCD(a,b)
 
