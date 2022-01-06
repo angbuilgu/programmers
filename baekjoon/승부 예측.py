@@ -1,14 +1,16 @@
-import operator
 
-contries = input().split(' ')
+
+contries = input().split(' ') # [KOREA,CCC,BBB,AAA]
+
 WDL = {} # 확률
-entries = []
+entries = [] # [KOREA,CCC,BBB,AAA]
 percent = {}
 for i in contries:
     WDL[i] = {}
     entries.append(i)
     percent[i] = 0.0
 answer = WDL
+
 for i in range(0,6):
     league = input().split(' ')
     if entries.index(league[0]) < entries.index(league[1]):
@@ -18,6 +20,7 @@ for i in range(0,6):
 
 WDL2 = {} # 기댓값
 threes = 3*3*3*3*3*3
+
 for i in range(0,threes):
     WDL2[i] = {}
 cnt = 0
@@ -83,16 +86,15 @@ for a in range(0,3):
                             ff = 0
                             fff = 3
                         # 각 팀의 점수 및 확률
-                        WDL2[cnt][entries[0]] = (aa + bb + cc, WDL[entries[0]][entries[1]][a] * WDL[entries[0]][entries[2]][b] * WDL[entries[0]][entries[3]][c])
+                        pp = WDL[entries[0]][entries[1]][a] * WDL[entries[0]][entries[2]][b] * WDL[entries[0]][entries[3]][c] * WDL[entries[1]][entries[2]][d] * WDL[entries[1]][entries[3]][e] * WDL[entries[2]][entries[3]][f]
+                        WDL2[cnt][entries[0]] = (aa + bb + cc, pp)
 
+                        WDL2[cnt][entries[1]] = (aaa + dd + ee, pp)
 
-                        WDL2[cnt][entries[1]] = (aaa + dd + ee, WDL[entries[0]][entries[1]][a] * WDL[entries[1]][entries[2]][d] * WDL[entries[1]][entries[3]][e])
+                        WDL2[cnt][entries[2]] = (bbb + ddd + ff, pp)
 
+                        WDL2[cnt][entries[3]] = (ccc + eee + fff, pp)
 
-                        WDL2[cnt][entries[2]] = (bbb + ddd + ff, WDL[entries[0]][entries[2]][b] * WDL[entries[1]][entries[2]][d] * WDL[entries[2]][entries[3]][f])
-
-
-                        WDL2[cnt][entries[3]] = (ccc + eee + fff, WDL[entries[0]][entries[3]][c] * WDL[entries[1]][entries[3]][e] * WDL[entries[2]][entries[3]][f])
                         cnt += 1
 
 
@@ -101,38 +103,39 @@ for i in WDL2:
     if WDL2[i][entries[0]][1] == 0.0 or WDL2[i][entries[1]][1] == 0.0 or WDL2[i][entries[2]][1] == 0.0 or WDL2[i][entries[3]][1] == 0.0:
         continue
     #print(WDL2[i])
-    for j in WDL2[i]:
-        game += 1
-        temp = dict(reversed(sorted(WDL2[i].items(), key= lambda x:x[1][0])))
-        #print(temp)
-        top = []
-        nxt = []
-        for k in temp:
-            if len(top) == 0 or temp[k][0] == top[len(top)-1][1][0]:
-                top.append((k,temp[k]))
-            elif len(top) < 2 and (len(nxt) == 0 or temp[k][0] == nxt[len(nxt)-1][1][0]):
-                nxt.append((k,temp[k]))
-            else:
-                break
-        #print("top: ", top)
-        #print("nxt: ", nxt)
-        if len(top) > 1:
-            for k in top:
-                percent[k[0]] += 1.0 / len(top)
+    game += 1
+    temp = dict(reversed(sorted(WDL2[i].items(), key= lambda x:x[1][0])))
+    #print(temp)
+    top = []
+    nxt = []
+    for k in temp:
+        if len(top) == 0 or temp[k][0] == top[len(top)-1][1][0]:
+            top.append((k,temp[k]))
+        elif len(top) < 2 and (len(nxt) == 0 or temp[k][0] == nxt[len(nxt)-1][1][0]):
+            nxt.append((k,temp[k]))
         else:
-            percent[top[0][0]] += 1.0
-            if len(nxt) > 1:
-                for k in nxt:
-                    percent[k[0]] += 1.0 / len(nxt)
-            else:
-                percent[nxt[0][0]] += 1.0
+            break
+    #print("top: ", top)
+    #print("nxt: ", nxt)
+    if len(top) > 1:
+        for k in top:
+            percent[k[0]] += k[1][1] / len(top)
+    else:
+        percent[top[0][0]] += top[0][1][1]
+        if len(nxt) > 1:
+            for k in nxt:
+                percent[k[0]] += k[1][1] / len(nxt)
+        else:
+            percent[nxt[0][0]] += nxt[0][1][1]
 
 
 #print(percent)
-#print(game)
+
 
 for i in percent:
-    print("{0:.10f}".format(percent[i] / game))
+    print('%0.10f' %percent[i])
+    #print(round(percent[i],10))
+    #print(("{0:.10f}".format(percent[i])))
     #print(percent[i] / game)
 
 
@@ -151,4 +154,20 @@ AAA KOREA 0.0 0.0 1.0
 CCC BBB 0.0 1.0 0.0
 KOREA BBB 1.0 0.0 0.0
 CCC AAA 0.5 0.0 0.5'''
+
+'''KOREA CCC BBB AAA
+KOREA CCC 0.33 0.33 0.34
+AAA BBB 0.33 0.33 0.34
+AAA KOREA 0.33 0.33 0.34
+CCC BBB 0.33 0.33 0.34
+KOREA BBB 0.33 0.33 0.34
+CCC AAA 0.33 0.33 0.34'''
+
+'''KOREA CCC BBB AAA
+KOREA CCC 0.0 1.0 0.0
+AAA BBB 0.0 1.0 0.0
+AAA KOREA 0.0 1.0 0.0
+CCC BBB 0.0 1.0 0.0
+KOREA BBB 0.0 1.0 0.0
+CCC AAA 0.0 1.0 0.0'''
 
