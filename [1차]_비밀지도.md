@@ -14,7 +14,7 @@ URL: https://programmers.co.kr/learn/courses/30/lessons/17681
 
 4. 암호화된 배열은 지도의 각 가로줄에서 벽 부분을 1, 공백 부분을 0으로 부호화했을 때 얻어지는 이진수에 해당하는 값의 배열이다.
 
-http://t1.kakaocdn.net/welcome2018/secret8.png
+![map](https://user-images.githubusercontent.com/87894389/152342994-9e763ef0-577e-4f37-9e3b-93aaad25466a.png)
 
 네오가 프로도의 비상금을 손에 넣을 수 있도록, 비밀지도의 암호를 해독하는 작업을 도와줄 프로그램을 작성하라.
 
