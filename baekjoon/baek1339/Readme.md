@@ -76,7 +76,7 @@ public class Main {
 ```
 ### 배운거
 Collection을 ArrayList로 만들 수 있다
-'''java
+```java
 ArrayList<Integer> list = new ArrayList<Integer>(map.values());
-'''
+```
 자주 사용할 것 같다
