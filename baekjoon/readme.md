@@ -79,3 +79,6 @@ public class Main {
 
 ### 개선사항
 귀찮다고 아는방법 안쓰려고 하면 시간만 더 버린다
+
+# 참고
+- 테이블 만들기: https://inasie.github.io/it%EC%9D%BC%EB%B0%98/%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4-%ED%91%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0/
